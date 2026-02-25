@@ -12,6 +12,10 @@ export const usersAPI = {
   async updateTimeUsage(userId, minutes) {
     return apiClient.put('/users', { userId, timeUsed: minutes });
   },
+
+  async updateTimeLimit(userId, dailyTimeLimit) {
+    return apiClient.put('/users', { userId, dailyTimeLimit });
+  },
 };
 
 export default usersAPI;

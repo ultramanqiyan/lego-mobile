@@ -12,11 +12,11 @@ import { useTheme } from '../../context/ThemeContext';
 import { useToast } from '../../context/ToastContext';
 import { storage } from '../../utils/storage';
 import { Card, Button } from '../../components/common';
-import { COLORS, THEMES } from '../../utils/constants';
+import { COLORS } from '../../utils/constants';
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
   const { user, logout } = useAuth();
-  const { themeId, changeTheme } = useTheme();
+  const { themeId, themes, changeTheme } = useTheme();
   const toast = useToast();
 
   const handleLogout = () => {
@@ -76,21 +76,32 @@ const SettingsScreen = () => {
       </Card>
 
       <Card style={styles.section}>
+        <Text style={styles.sectionTitle}>👨‍👩‍👧 家长控制</Text>
+        <TouchableOpacity 
+          style={styles.settingItem}
+          onPress={() => navigation.navigate('ParentControl')}
+        >
+          <Text style={styles.settingLabel}>⏰ 时间管理与阅读统计</Text>
+          <Text style={styles.settingArrow}>→</Text>
+        </TouchableOpacity>
+      </Card>
+
+      <Card style={styles.section}>
         <Text style={styles.sectionTitle}>🎨 主题风格</Text>
         <View style={styles.themeGrid}>
-          {THEMES.map((theme) => (
+          {themes.map((t) => (
             <TouchableOpacity
-              key={theme.id}
+              key={t.id}
               style={[
                 styles.themeOption,
-                themeId === theme.id && styles.themeOptionActive,
-                { borderColor: theme.primaryColor },
+                themeId === t.id && styles.themeOptionActive,
+                { borderColor: t.colors.primary },
               ]}
-              onPress={() => handleThemeChange(theme.id)}
+              onPress={() => handleThemeChange(t.id)}
             >
-              <View style={[styles.themeColor, { backgroundColor: theme.primaryColor }]} />
-              <Text style={styles.themeName}>{theme.name}</Text>
-              {themeId === theme.id && <Text style={styles.themeCheck}>✓</Text>}
+              <View style={[styles.themeColor, { backgroundColor: t.colors.primary }]} />
+              <Text style={styles.themeName}>{t.name}</Text>
+              {themeId === t.id && <Text style={styles.themeCheck}>✓</Text>}
             </TouchableOpacity>
           ))}
         </View>
@@ -108,7 +119,7 @@ const SettingsScreen = () => {
         <Text style={styles.sectionTitle}>ℹ️ 关于</Text>
         <View style={styles.aboutItem}>
           <Text style={styles.aboutLabel}>版本</Text>
-          <Text style={styles.aboutValue}>1.0.0</Text>
+          <Text style={styles.aboutValue}>1.1.0</Text>
         </View>
         <View style={styles.aboutItem}>
           <Text style={styles.aboutLabel}>开发者</Text>
@@ -124,7 +135,7 @@ const SettingsScreen = () => {
         style={styles.logoutButton}
       />
 
-      <Text style={styles.footer}>乐高故事书 &copy; 2024 - 让想象力飞翔</Text>
+      <Text style={styles.footer}>乐高故事书 © 2024 - 让想象力飞翔</Text>
     </ScrollView>
   );
 };

@@ -9,9 +9,11 @@ import BookshelfScreen from '../screens/bookshelf/BookshelfScreen';
 import CharactersScreen from '../screens/characters/CharactersScreen';
 import AdventureScreen from '../screens/adventure/AdventureScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
+import ParentControlScreen from '../screens/settings/ParentControlScreen';
 
 import StoryCreateScreen from '../screens/story/StoryCreateScreen';
 import BookDetailScreen from '../screens/story/BookDetailScreen';
+import StoryDirectorScreen from '../screens/story/StoryDirectorScreen';
 import ChapterScreen from '../screens/chapter/ChapterScreen';
 import ShareScreen from '../screens/share/ShareScreen';
 
@@ -40,6 +42,7 @@ const HomeStack = () => {
       <Stack.Screen name="HomeMain" component={HomeScreen} />
       <Stack.Screen name="StoryCreate" component={StoryCreateScreen} />
       <Stack.Screen name="BookDetail" component={BookDetailScreen} />
+      <Stack.Screen name="StoryDirector" component={StoryDirectorScreen} />
       <Stack.Screen name="Chapter" component={ChapterScreen} />
     </Stack.Navigator>
   );
@@ -50,6 +53,7 @@ const BookshelfStack = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="BookshelfMain" component={BookshelfScreen} />
       <Stack.Screen name="BookDetail" component={BookDetailScreen} />
+      <Stack.Screen name="StoryDirector" component={StoryDirectorScreen} />
       <Stack.Screen name="Chapter" component={ChapterScreen} />
       <Stack.Screen name="StoryCreate" component={StoryCreateScreen} />
     </Stack.Navigator>
@@ -77,6 +81,7 @@ const SettingsStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="SettingsMain" component={SettingsScreen} />
+      <Stack.Screen name="ParentControl" component={ParentControlScreen} />
     </Stack.Navigator>
   );
 };

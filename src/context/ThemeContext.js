@@ -1,13 +1,71 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { storage } from '../utils/storage';
-import { getTheme, createThemedStyles } from '../styles/colors';
 
 const ThemeContext = createContext(null);
 
+const themes = {
+  default: {
+    id: 'default',
+    name: '经典乐高',
+    colors: {
+      primary: '#FFD500',
+      secondary: '#006CB7',
+      accent: '#FF6B35',
+      background: '#FFF8E7',
+      backgroundLight: '#FFFEF5',
+      surface: '#FFFFFF',
+      text: '#333333',
+      textLight: '#666666',
+      textMuted: '#999999',
+      error: '#E74C3C',
+      success: '#27AE60',
+      warning: '#F39C12',
+      info: '#3498DB',
+    },
+  },
+  immersive: {
+    id: 'immersive',
+    name: '沉浸故事',
+    colors: {
+      primary: '#1A1A2E',
+      secondary: '#16213E',
+      accent: '#0F3460',
+      background: '#0F0F1A',
+      backgroundLight: '#1A1A2E',
+      surface: '#1A1A2E',
+      text: '#FFFFFF',
+      textLight: '#B0B0B0',
+      textMuted: '#808080',
+      error: '#E74C3C',
+      success: '#27AE60',
+      warning: '#F39C12',
+      info: '#3498DB',
+    },
+  },
+  gamified: {
+    id: 'gamified',
+    name: '游戏冒险',
+    colors: {
+      primary: '#9C27B0',
+      secondary: '#E91E63',
+      accent: '#FF4081',
+      background: '#2D2D44',
+      backgroundLight: '#3D3D54',
+      surface: '#3D3D54',
+      text: '#FFFFFF',
+      textLight: '#B0B0B0',
+      textMuted: '#808080',
+      error: '#E74C3C',
+      success: '#27AE60',
+      warning: '#F39C12',
+      info: '#3498DB',
+    },
+  },
+};
+
 export const ThemeProvider = ({ children }) => {
-  const [themeId, setThemeId] = useState('lego');
-  const [theme, setTheme] = useState(getTheme('lego'));
-  const [themedStyles, setThemedStyles] = useState(createThemedStyles(getTheme('lego')));
+  const [themeId, setThemeId] = useState('default');
+  const [theme, setTheme] = useState(themes.default);
 
   useEffect(() => {
     loadTheme();
@@ -16,7 +74,7 @@ export const ThemeProvider = ({ children }) => {
   const loadTheme = async () => {
     try {
       const savedThemeId = await storage.getTheme();
-      if (savedThemeId) {
+      if (savedThemeId && themes[savedThemeId]) {
         changeTheme(savedThemeId);
       }
     } catch (error) {
@@ -26,10 +84,9 @@ export const ThemeProvider = ({ children }) => {
 
   const changeTheme = async (newThemeId) => {
     try {
-      const newTheme = getTheme(newThemeId);
+      const newTheme = themes[newThemeId] || themes.default;
       setThemeId(newThemeId);
       setTheme(newTheme);
-      setThemedStyles(createThemedStyles(newTheme));
       await storage.setTheme(newThemeId);
     } catch (error) {
       console.error('Change theme failed:', error);
@@ -39,7 +96,7 @@ export const ThemeProvider = ({ children }) => {
   const value = {
     themeId,
     theme,
-    themedStyles,
+    themes: Object.values(themes),
     changeTheme,
   };
 

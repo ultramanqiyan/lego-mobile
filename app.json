@@ -30,19 +30,13 @@
       "package": "com.legostory.mobile"
     },
     "web": {
-      "bundler": "metro",
-      "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
       "expo-secure-store"
     ],
-    "experiments": {
-      "typedRoutes": true
-    },
     "extra": {
-      "apiBaseUrl": "https://lego-story.pages.dev/api",
+      "apiBaseUrl": "http://localhost:8788/api",
       "eas": {
         "projectId": "your-project-id"
       }

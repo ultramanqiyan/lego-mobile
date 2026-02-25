@@ -20,10 +20,13 @@ export const chaptersAPI = {
     });
   },
 
-  async generate(bookId, userId, plotSelection = null) {
+  async generate(bookId, userId, plotSelection = null, characterIds = null) {
     const body = { userId };
     if (plotSelection) {
       body.plotSelection = plotSelection;
+    }
+    if (characterIds) {
+      body.characterIds = characterIds;
     }
     return apiClient.post(`/chapters-generate/books/${bookId}`, body);
   },

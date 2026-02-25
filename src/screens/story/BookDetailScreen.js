@@ -225,7 +225,7 @@ const BookDetailScreen = ({ route, navigation }) => {
         {activeTab === 'chapters' ? (
           <Button
             title="➕ 添加章节"
-            onPress={openPlotModal}
+            onPress={() => navigation.navigate('StoryDirector', { bookId })}
             size="lg"
             style={styles.bottomButton}
           />
